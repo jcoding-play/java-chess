@@ -81,13 +81,18 @@ public class Point {
         if (this.equals(destination)) {
             return false;
         }
-        final int fileDistance = calculateFileDistance(destination);
-        final int rankDistance = calculateRankDistance(destination);
-        final int totalDistance = Math.abs(fileDistance) + Math.abs(rankDistance);
-        if (fileDistance != 0 && rankDistance != 0) {
-            return totalDistance == 2;
-        }
-        return totalDistance == 1;
+        final int absoluteFileDistance = toAbsolute(calculateFileDistance(destination));
+        final int absoluteRankDistance = toAbsolute(calculateRankDistance(destination));
+
+        return isLessThanTwo(absoluteFileDistance) && isLessThanTwo(absoluteRankDistance);
+    }
+
+    private int toAbsolute(final int value) {
+        return Math.abs(value);
+    }
+
+    private boolean isLessThanTwo(final int value) {
+        return value < 2;
     }
 
     public int multiplyAxis(final Point destination) {
