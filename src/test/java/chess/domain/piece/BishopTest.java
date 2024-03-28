@@ -1,13 +1,47 @@
 package chess.domain.piece;
 
+import chess.domain.board.BoardFactory;
+import chess.domain.point.Point;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
 
 import static chess.fixture.PointFixture.포인트;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BishopTest {
     private Bishop bishop = new Bishop(Team.WHITE);
+
+    @Test
+    @DisplayName("도착 지점에 같은 팀의 기물이 있으면 움직일 수 없다.")
+    void canNotMove1() {
+        Map<Point, Piece> board = BoardFactory.createEmptyBoard();
+        board.put(포인트("A1"), bishop);
+        board.put(포인트("B2"), new King(Team.WHITE));
+
+        boolean result = bishop.canMove(
+                포인트("A1"),
+                포인트("B2"),
+                board);
+
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    @DisplayName("이동 경로에 기물이 있으면 움직일 수 없다.")
+    void canNotMove2() {
+        Map<Point, Piece> board = BoardFactory.createEmptyBoard();
+        board.put(포인트("A1"), bishop);
+        board.put(포인트("F6"), new King(Team.BLACK));
+
+        boolean result = bishop.canMove(
+                포인트("A1"),
+                포인트("H8"),
+                board);
+
+        assertThat(result).isFalse();
+    }
 
     @Test
     @DisplayName("오른쪽 대각선 위로 움직일 수 있다.")
