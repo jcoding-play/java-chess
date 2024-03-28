@@ -54,9 +54,6 @@ public class Point {
     }
 
     public boolean isDiagonalWithSlopeOfOne(final Point destination) {
-        if (this.equals(destination)) {
-            return false;
-        }
         return Math.abs(calculateSlope(destination)) == 1;
     }
 
@@ -71,16 +68,10 @@ public class Point {
     }
 
     public boolean isStraight(final Point destination) {
-        if (this.equals(destination)) {
-            return false;
-        }
         return this.file == destination.file || this.rank == destination.rank;
     }
 
     public boolean isAround(final Point destination) {
-        if (this.equals(destination)) {
-            return false;
-        }
         final int absoluteFileDistance = toAbsolute(calculateFileDistance(destination));
         final int absoluteRankDistance = toAbsolute(calculateRankDistance(destination));
 
