@@ -14,7 +14,7 @@ public abstract class Piece {
         this.team = team;
     }
 
-    public abstract boolean isMovable(final Point departure, final Point destination, final Map<Point, Piece> board);
+    public abstract boolean canMove(final Point departure, final Point destination, final Map<Point, Piece> board);
 
     protected abstract boolean isMovablePoint(final Point departure, final Point destination);
 

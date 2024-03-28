@@ -40,7 +40,7 @@ public class Board {
     }
 
     private void validateMovePoint(final Point departure, final Point destination, final Piece piece) {
-        if (!piece.isMovable(departure, destination, board)) {
+        if (!piece.canMove(departure, destination, board)) {
             throw new IllegalArgumentException("해당 기물이 이동할 수 있는 위치가 아닙니다.");
         }
     }

@@ -47,13 +47,13 @@ public final class Pawn extends MultiMovePiece {
     }
 
     @Override
-    public boolean isMovable(final Point departure, final Point destination, final Map<Point, Piece> board) {
+    public boolean canMove(final Point departure, final Point destination, final Map<Point, Piece> board) {
         if (departure.isDiagonalWithSlopeOfOne(destination) && board.get(destination).equals(Empty.INSTANCE)) {
             return false;
         }
         if (departure.isStraight(destination) && !board.get(destination).equals(Empty.INSTANCE)) {
             return false;
         }
-        return super.isMovable(departure, destination, board);
+        return super.canMove(departure, destination, board);
     }
 }

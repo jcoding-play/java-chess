@@ -12,7 +12,7 @@ public abstract class MultiMovePiece extends Piece {
     }
 
     @Override
-    public boolean isMovable(final Point departure, final Point destination, final Map<Point, Piece> board) {
+    public boolean canMove(final Point departure, final Point destination, final Map<Point, Piece> board) {
         if (hasSameTeamPieceAtDestination(board.get(departure), board.get(destination))) {
             return false;
         }

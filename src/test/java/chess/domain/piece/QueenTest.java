@@ -10,7 +10,7 @@ class QueenTest {
 
     @Test
     @DisplayName("위로 움직일 수 있다")
-    void isMovableDirection1() {
+    void isMovablePoint1() {
         Queen queen = new Queen(Team.WHITE);
 
         boolean result = queen.isMovablePoint(
@@ -23,7 +23,7 @@ class QueenTest {
 
     @Test
     @DisplayName("아래로 움직일 수 있다")
-    void isMovableDirection2() {
+    void isMovablePoint2() {
         Queen queen = new Queen(Team.WHITE);
 
         boolean result = queen.isMovablePoint(
@@ -36,7 +36,7 @@ class QueenTest {
 
     @Test
     @DisplayName("왼쪽으로 움직일 수 있다")
-    void isMovableDirection3() {
+    void isMovablePoint3() {
         Queen queen = new Queen(Team.WHITE);
 
         boolean result = queen.isMovablePoint(
@@ -49,7 +49,7 @@ class QueenTest {
 
     @Test
     @DisplayName("오른쪽으로 움직일 수 있다")
-    void isMovableDirection4() {
+    void isMovablePoint4() {
         Queen queen = new Queen(Team.WHITE);
 
         boolean result = queen.isMovablePoint(
@@ -62,7 +62,7 @@ class QueenTest {
 
     @Test
     @DisplayName("오른쪽 대각선 위로 움직일 수 있다.")
-    void isMovableDirection5() {
+    void isMovablePoint5() {
         Queen queen = new Queen(Team.WHITE);
         boolean result = queen.isMovablePoint(
                 Point.of('a', 1),
@@ -74,7 +74,7 @@ class QueenTest {
 
     @Test
     @DisplayName("오른쪽 대각선 아래로 움직일 수 있다.")
-    void isMovableDirection6() {
+    void isMovablePoint6() {
         Queen queen = new Queen(Team.WHITE);
         boolean result = queen.isMovablePoint(
                 Point.of('c', 4),
@@ -86,7 +86,7 @@ class QueenTest {
 
     @Test
     @DisplayName("왼쪽 대각선 위로 움직일 수 있다.")
-    void isMovableDirection7() {
+    void isMovablePoint7() {
         Queen queen = new Queen(Team.WHITE);
         boolean result = queen.isMovablePoint(
                 Point.of('h', 1),
@@ -98,7 +98,7 @@ class QueenTest {
 
     @Test
     @DisplayName("왼쪽 대각선 아래로 움직일 수 있다.")
-    void isMovableDirection8() {
+    void isMovablePoint8() {
         Queen queen = new Queen(Team.WHITE);
         boolean result = queen.isMovablePoint(
                 Point.of('h', 8),

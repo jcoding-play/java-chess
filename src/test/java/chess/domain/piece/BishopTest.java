@@ -11,7 +11,7 @@ class BishopTest {
 
     @Test
     @DisplayName("오른쪽 대각선 위로 움직일 수 있다.")
-    void isMovableDirection1() {
+    void isMovablePoint1() {
         boolean result = bishop.isMovablePoint(
                 포인트("A1"),
                 포인트("B2"));
@@ -21,7 +21,7 @@ class BishopTest {
 
     @Test
     @DisplayName("오른쪽 대각선 아래로 움직일 수 있다.")
-    void isMovableDirection2() {
+    void isMovablePoint2() {
         boolean result = bishop.isMovablePoint(
                 포인트("C4"),
                 포인트("E2"));
@@ -31,7 +31,7 @@ class BishopTest {
 
     @Test
     @DisplayName("왼쪽 대각선 위로 움직일 수 있다.")
-    void isMovableDirection3() {
+    void isMovablePoint3() {
         boolean result = bishop.isMovablePoint(
                 포인트("H1"),
                 포인트("A8"));
@@ -41,7 +41,7 @@ class BishopTest {
 
     @Test
     @DisplayName("왼쪽 대각선 아래로 움직일 수 있다.")
-    void isMovableDirection4() {
+    void isMovablePoint4() {
         boolean result = bishop.isMovablePoint(
                 포인트("H8"),
                 포인트("B2"));
@@ -51,7 +51,7 @@ class BishopTest {
 
     @Test
     @DisplayName("오른쪽 일직선으로 움직일 수 없다.")
-    void isNotMovableDirection1() {
+    void isNotMovablePoint1() {
         boolean result = bishop.isMovablePoint(
                 포인트("A1"),
                 포인트("H1"));
@@ -61,7 +61,7 @@ class BishopTest {
 
     @Test
     @DisplayName("왼쪽 일직선으로 움직일 수 없다.")
-    void isNotMovableDirection2() {
+    void isNotMovablePoint2() {
         boolean result = bishop.isMovablePoint(
                 포인트("C4"),
                 포인트("A4"));
@@ -71,7 +71,7 @@ class BishopTest {
 
     @Test
     @DisplayName("위 일직선으로 움직일 수 없다.")
-    void isNotMovableDirection3() {
+    void isNotMovablePoint3() {
         boolean result = bishop.isMovablePoint(
                 포인트("A1"),
                 포인트("A8"));
@@ -81,7 +81,7 @@ class BishopTest {
 
     @Test
     @DisplayName("아래 일직선으로 움직일 수 없다.")
-    void isNotMovableDirection4() {
+    void isNotMovablePoint4() {
         boolean result = bishop.isMovablePoint(
                 포인트("H8"),
                 포인트("B8"));
@@ -91,7 +91,7 @@ class BishopTest {
 
     @Test
     @DisplayName("같은 위치로 움직일 수 없다.")
-    void isNotMovableDirection5() {
+    void isNotMovablePoint5() {
         boolean result = bishop.isMovablePoint(
                 포인트("H8"),
                 포인트("H8"));

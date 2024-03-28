@@ -10,7 +10,7 @@ class RookTest {
 
     @Test
     @DisplayName("위로 움직일 수 있다")
-    void isMovableDirection1() {
+    void isMovablePoint1() {
         Rook rook = new Rook(Team.WHITE);
 
         boolean result = rook.isMovablePoint(
@@ -23,7 +23,7 @@ class RookTest {
 
     @Test
     @DisplayName("아래로 움직일 수 있다")
-    void isMovableDirection2() {
+    void isMovablePoint2() {
         Rook rook = new Rook(Team.WHITE);
 
         boolean result = rook.isMovablePoint(
@@ -36,7 +36,7 @@ class RookTest {
 
     @Test
     @DisplayName("왼쪽으로 움직일 수 있다")
-    void isMovableDirection3() {
+    void isMovablePoint3() {
         Rook rook = new Rook(Team.WHITE);
 
         boolean result = rook.isMovablePoint(
@@ -49,7 +49,7 @@ class RookTest {
 
     @Test
     @DisplayName("오른쪽으로 움직일 수 있다")
-    void isMovableDirection4() {
+    void isMovablePoint4() {
         Rook rook = new Rook(Team.WHITE);
 
         boolean result = rook.isMovablePoint(
@@ -62,7 +62,7 @@ class RookTest {
 
     @Test
     @DisplayName("대각선으로 움질수 없다")
-    void invalidMovableDirection() {
+    void invalidMovablePoint() {
         Rook rook = new Rook(Team.WHITE);
 
         boolean result = rook.isMovablePoint(
