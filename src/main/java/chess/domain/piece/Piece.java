@@ -16,12 +16,18 @@ public abstract class Piece {
 
     public abstract boolean isMovable(final Point departure, final Point destination, final Map<Point, Piece> board);
 
-    public boolean hasSameTeamPieceAtDestination(final Piece pieceAtDeparture, final Piece pieceAtDestination) {
-        return pieceAtDeparture.team == pieceAtDestination.team;
-    }
+    protected abstract boolean isMovablePoint(final Point departure, final Point destination);
 
     public boolean isSameTeam(final Team team) {
         return this.team == team;
+    }
+
+    protected boolean isNotSamePoint(final Point departure, final Point destination) {
+        return !departure.equals(destination);
+    }
+
+    protected boolean hasSameTeamPieceAtDestination(final Piece pieceAtDeparture, final Piece pieceAtDestination) {
+        return pieceAtDeparture.team == pieceAtDestination.team;
     }
 
     public Type getType() {

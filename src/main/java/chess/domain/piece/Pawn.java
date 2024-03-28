@@ -15,7 +15,7 @@ public final class Pawn extends MultiMovePiece {
     }
 
     @Override
-    public boolean isMovableDirection(final Point departure, final Point destination) {
+    protected boolean isMovablePoint(final Point departure, final Point destination) {
         final Team team = getTeam();
         final List<Point> movablePoints = findMovablePoints(departure, team);
 

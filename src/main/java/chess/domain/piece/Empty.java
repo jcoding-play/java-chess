@@ -15,4 +15,9 @@ public class Empty extends Piece {
     public boolean isMovable(final Point departure, final Point destination, final Map<Point, Piece> board) {
         return false;
     }
+
+    @Override
+    protected boolean isMovablePoint(final Point departure, final Point destination) {
+        return false;
+    }
 }

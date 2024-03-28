@@ -11,8 +11,6 @@ public abstract class MultiMovePiece extends Piece {
         super(type, team);
     }
 
-    public abstract boolean isMovableDirection(final Point departure, final Point destination);
-
     @Override
     public boolean isMovable(final Point departure, final Point destination, final Map<Point, Piece> board) {
         if (hasSameTeamPieceAtDestination(board.get(departure), board.get(destination))) {
@@ -21,7 +19,7 @@ public abstract class MultiMovePiece extends Piece {
         if (hasPieceOnTheRoute(departure, destination, board)) {
             return false;
         }
-        return isMovableDirection(departure, destination);
+        return isMovablePoint(departure, destination);
     }
 
     private boolean hasPieceOnTheRoute(final Point departure, final Point destination, final Map<Point, Piece> board) {

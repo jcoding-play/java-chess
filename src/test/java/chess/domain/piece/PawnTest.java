@@ -13,7 +13,7 @@ class PawnTest {
     void isMovable1() {
         Pawn pawn = new Pawn(Team.WHITE);
 
-        boolean result = pawn.isMovableDirection(
+        boolean result = pawn.isMovablePoint(
                 Point.of('a', 3),
                 Point.of('a', 4)
         );
@@ -26,7 +26,7 @@ class PawnTest {
     void isMovable2() {
         Pawn pawn = new Pawn(Team.WHITE);
 
-        boolean result = pawn.isMovableDirection(
+        boolean result = pawn.isMovablePoint(
                 Point.of('a', 2),
                 Point.of('a', 4)
         );
@@ -39,7 +39,7 @@ class PawnTest {
     void invalidIsMovable1() {
         Pawn pawn = new Pawn(Team.WHITE);
 
-        boolean result = pawn.isMovableDirection(
+        boolean result = pawn.isMovablePoint(
                 Point.of('a', 2),
                 Point.of('a', 1)
         );
@@ -52,7 +52,7 @@ class PawnTest {
     void invalidIsMovable2() {
         Pawn pawn = new Pawn(Team.WHITE);
 
-        boolean result = pawn.isMovableDirection(
+        boolean result = pawn.isMovablePoint(
                 Point.of('a', 3),
                 Point.of('a', 5)
         );
