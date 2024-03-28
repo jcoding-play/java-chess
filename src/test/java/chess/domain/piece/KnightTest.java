@@ -1,13 +1,32 @@
 package chess.domain.piece;
 
+import chess.domain.board.BoardFactory;
+import chess.domain.point.Point;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
 
 import static chess.fixture.PointFixture.포인트;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class KnightTest {
     private Knight knight = new Knight(Team.WHITE);
+
+    @Test
+    @DisplayName("도착 지점에 같은 팀의 기물이 있으면 움직일 수 없다.")
+    void canNotMove1() {
+        Map<Point, Piece> board = BoardFactory.createEmptyBoard();
+        board.put(포인트("A1"), knight);
+        board.put(포인트("B3"), new King(Team.WHITE));
+
+        boolean result = knight.canMove(
+                포인트("A1"),
+                포인트("B3"),
+                board);
+
+        assertThat(result).isFalse();
+    }
 
     @Test
     @DisplayName("위로 두칸을 이동한 뒤 좌로 한칸 이동할 수 있다.")
