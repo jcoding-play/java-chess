@@ -26,12 +26,16 @@ public abstract class MultiMovePiece extends Piece {
         final Direction route = departure.findRoute(destination);
 
         Point nextPoint = departure.add(route.file(), route.rank());
-        while (!nextPoint.equals(destination)) {
-            if (!board.get(nextPoint).equals(Empty.INSTANCE)) {
+        while (isNotSamePoint(nextPoint, destination)) {
+            if (isPiece(board.get(nextPoint))) {
                 return true;
             }
             nextPoint = nextPoint.add(route.file(), route.rank());
         }
         return false;
+    }
+
+    private boolean isPiece(final Piece piece) {
+        return !piece.equals(Empty.INSTANCE);
     }
 }
