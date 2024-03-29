@@ -18,7 +18,7 @@ public abstract class Piece {
 
     protected abstract boolean isMovablePoint(final Point departure, final Point destination);
 
-    public boolean isSameTeam(final Team team) {
+    public boolean isTeamMatch(final Team team) {
         return this.team == team;
     }
 

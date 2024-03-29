@@ -35,7 +35,7 @@ public class Board {
     }
 
     private void validateMyPiece(final Team team, final Piece piece) {
-        if (!piece.isSameTeam(team)) {
+        if (!piece.isTeamMatch(team)) {
             throw new IllegalArgumentException("상대방의 기물을 움직일 수 없습니다.");
         }
     }
@@ -60,7 +60,7 @@ public class Board {
     private double calculateScore(final Team team) {
         return board.values()
                 .stream()
-                .filter(piece -> piece.isSameTeam(team))
+                .filter(piece -> piece.isTeamMatch(team))
                 .mapToDouble(Piece::getScore)
                 .sum();
     }
@@ -81,7 +81,7 @@ public class Board {
         for (char file = 'a'; file <= 'h'; file++) {
             for (int rank = 1; rank <= 8; rank++) {
                 final Piece piece = board.get(Point.of(file, rank));
-                if (piece.isPawn() && piece.isSameTeam(team)) {
+                if (piece.isPawn() && piece.isTeamMatch(team)) {
                     pawnCountInSameLine.put(file, pawnCountInSameLine.getOrDefault(file, 0) + 1);
                 }
             }
