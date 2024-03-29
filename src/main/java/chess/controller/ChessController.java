@@ -3,6 +3,7 @@ package chess.controller;
 import chess.domain.board.BoardFactory;
 import chess.domain.game.ChessGame;
 import chess.domain.game.Command;
+import chess.domain.piece.Team;
 import chess.domain.point.Point;
 import chess.view.InputView;
 import chess.view.OutputView;
@@ -51,6 +52,13 @@ public class ChessController {
             final Point departure = generatePoint(readCommand, 1);
             final Point destination = generatePoint(readCommand, 2);
             game.move(departure, destination);
+        }
+        if (command.isStatus()) {
+            final double whiteScore = game.calculateScore(Team.WHITE);
+            final double blackScore = game.calculateScore(Team.BLACK);
+
+            outputView.printScore(whiteScore, blackScore);
+            return;
         }
         outputView.printBoard(game.getBoard());
     }

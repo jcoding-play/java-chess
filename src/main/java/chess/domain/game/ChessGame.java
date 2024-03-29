@@ -35,7 +35,7 @@ public class ChessGame {
     }
 
     public double calculateScore(final Team team) {
-        return board.calculateTotalScore(team);
+        return state.calculateScore(board, team);
     }
 
     public Map<Point, Piece> getBoard() {

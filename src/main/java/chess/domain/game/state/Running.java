@@ -37,4 +37,9 @@ public class Running implements State {
         }
         return new Running(team.opposite());
     }
+
+    @Override
+    public double calculateScore(final Board board, final Team team) {
+        return board.calculateTotalScore(team);
+    }
 }
