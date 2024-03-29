@@ -87,7 +87,7 @@ class PawnTest {
     }
 
     @Test
-    @DisplayName("초기 위치가 아닌 흰색 폰은 두 칸 움직일 수 없다")
+    @DisplayName("초기 위치가 아닌 흰색 폰은 두 칸 위로 움직일 수 없다")
     void invalidIsMovablePoint2_white() {
         Pawn pawn = 흰색_폰();
 
@@ -99,7 +99,7 @@ class PawnTest {
     }
 
     @Test
-    @DisplayName("초기 위치가 아닌 검정 폰은 두 칸 움직일 수 없다")
+    @DisplayName("초기 위치가 아닌 검정 폰은 두 칸 아래로 움직일 수 없다")
     void invalidIsMovablePoint2_black() {
         Pawn pawn = 검정_폰();
 
