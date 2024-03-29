@@ -6,6 +6,7 @@ import chess.domain.piece.Team;
 import chess.domain.point.Point;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Board {
@@ -47,6 +48,45 @@ public class Board {
 
     public Piece findPieceByPoint(final Point point) {
         return board.get(point);
+    }
+
+    public double calculateTotalScore(final Team team) {
+        final double score = calculateScore(team);
+        final double penalty = calculatePenalty(team);
+
+        return score - penalty;
+    }
+
+    private double calculateScore(final Team team) {
+        return board.values()
+                .stream()
+                .filter(piece -> piece.isSameTeam(team))
+                .mapToDouble(Piece::getScore)
+                .sum();
+    }
+
+    private double calculatePenalty(final Team team) {
+        final Map<Character, Integer> pawnCountInSameLine = countPawnInSameLine(team);
+
+        return pawnCountInSameLine.values()
+                .stream()
+                .filter(count -> count >= 2)
+                .mapToDouble(count -> count * 0.5)
+                .sum();
+    }
+
+    private Map<Character, Integer> countPawnInSameLine(final Team team) {
+        final Map<Character, Integer> pawnCountInSameLine = new HashMap<>();
+
+        for (char file = 'a'; file <= 'h'; file++) {
+            for (int rank = 1; rank <= 8; rank++) {
+                final Piece piece = board.get(Point.of(file, rank));
+                if (piece.isPawn() && piece.isSameTeam(team)) {
+                    pawnCountInSameLine.put(file, pawnCountInSameLine.getOrDefault(file, 0) + 1);
+                }
+            }
+        }
+        return pawnCountInSameLine;
     }
 
     public Map<Point, Piece> getBoard() {

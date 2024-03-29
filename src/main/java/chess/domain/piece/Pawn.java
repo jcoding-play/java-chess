@@ -56,4 +56,9 @@ public final class Pawn extends MultiMovePiece {
             points.add(point);
         }
     }
+
+    @Override
+    public boolean isPawn() {
+        return true;
+    }
 }

@@ -34,6 +34,10 @@ public class ChessGame {
         state = state.move(board, departure, destination);
     }
 
+    public double calculateScore(final Team team) {
+        return board.calculateTotalScore(team);
+    }
+
     public Map<Point, Piece> getBoard() {
         return board.getBoard();
     }

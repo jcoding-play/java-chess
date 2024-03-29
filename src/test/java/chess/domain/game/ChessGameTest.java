@@ -41,4 +41,34 @@ class ChessGameTest {
 
         assertThat(result).isFalse();
     }
+
+    @Test
+    @DisplayName("현재 남아 있는 말에 점수를 계산할 수 있다.")
+    void calculateScore1() {
+        Map<Point, Piece> board = BoardFactory.createInitialChessBoard();
+        ChessGame chessGame = new ChessGame(board);
+        chessGame.start();
+
+        double score = chessGame.calculateScore(Team.WHITE);
+
+        assertThat(score).isEqualTo(38.0);
+    }
+
+    @Test
+    @DisplayName("Pawn이 같은 세로 줄에 있으면 0.5점으로 계산된다.")
+    void calculateScore2() {
+        Map<Point, Piece> board = BoardFactory.createInitialChessBoard();
+        board.put(포인트("A3"), new Pawn(Team.WHITE));
+        board.put(포인트("A4"), new Pawn(Team.WHITE));
+        board.put(포인트("A5"), new Pawn(Team.WHITE));
+        board.put(포인트("B2"), Empty.INSTANCE);
+        board.put(포인트("C2"), Empty.INSTANCE);
+        board.put(포인트("D2"), Empty.INSTANCE);
+        ChessGame chessGame = new ChessGame(board);
+        chessGame.start();
+
+        double score = chessGame.calculateScore(Team.WHITE);
+
+        assertThat(score).isEqualTo(36.0);
+    }
 }

@@ -34,6 +34,14 @@ public abstract class Piece {
         return false;
     }
 
+    public boolean isPawn() {
+        return false;
+    }
+
+    public double getScore() {
+        return type.getScore();
+    }
+
     public Type getType() {
         return type;
     }
