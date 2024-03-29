@@ -1,6 +1,7 @@
 package chess.domain.game.state;
 
 import chess.domain.board.Board;
+import chess.domain.piece.Piece;
 import chess.domain.piece.Team;
 import chess.domain.point.Point;
 
@@ -28,7 +29,12 @@ public class Running implements State {
 
     @Override
     public State move(final Board board, final Point departure, final Point destination) {
+        final Piece destinationPiece = board.findPieceByPoint(destination);
         board.move(team, departure, destination);
+
+        if (destinationPiece.isKing()) {
+            return new End();
+        }
         return new Running(team.opposite());
     }
 }

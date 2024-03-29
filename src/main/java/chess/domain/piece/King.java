@@ -13,4 +13,9 @@ public final class King extends SingleMovePiece {
         return isNotSamePoint(departure, destination) &&
                 departure.isAround(destination);
     }
+
+    @Override
+    public boolean isKing() {
+        return true;
+    }
 }

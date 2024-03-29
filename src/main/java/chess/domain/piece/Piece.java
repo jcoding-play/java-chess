@@ -30,6 +30,10 @@ public abstract class Piece {
         return pieceAtDeparture.team == pieceAtDestination.team;
     }
 
+    public boolean isKing() {
+        return false;
+    }
+
     public Type getType() {
         return type;
     }

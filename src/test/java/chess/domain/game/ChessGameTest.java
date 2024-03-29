@@ -1,15 +1,14 @@
 package chess.domain.game;
 
 import chess.domain.board.BoardFactory;
-import chess.domain.piece.Empty;
-import chess.domain.piece.Pawn;
-import chess.domain.piece.Piece;
+import chess.domain.piece.*;
 import chess.domain.point.Point;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
+import static chess.fixture.PointFixture.포인트;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ChessGameTest {
@@ -27,5 +26,19 @@ class ChessGameTest {
 
         assertThat(board.get(departure)).isEqualTo(Empty.INSTANCE);
         assertThat(board.get(destination)).isInstanceOf(Pawn.class);
+    }
+
+    @Test
+    @DisplayName("King 이 잡히면 게임을 더 진행할 수 없다.")
+    void canPlay() {
+        Map<Point, Piece> board = BoardFactory.createInitialChessBoard();
+        board.put(포인트("D7"), new Bishop(Team.WHITE));
+        ChessGame chessGame = new ChessGame(board);
+        chessGame.start();
+        chessGame.move(포인트("D7"), 포인트("E8"));
+
+        boolean result = chessGame.isPlayable();
+
+        assertThat(result).isFalse();
     }
 }

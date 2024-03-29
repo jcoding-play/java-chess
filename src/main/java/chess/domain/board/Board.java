@@ -45,6 +45,10 @@ public class Board {
         }
     }
 
+    public Piece findPieceByPoint(final Point point) {
+        return board.get(point);
+    }
+
     public Map<Point, Piece> getBoard() {
         return Collections.unmodifiableMap(board);
     }
