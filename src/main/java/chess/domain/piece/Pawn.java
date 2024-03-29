@@ -15,6 +15,17 @@ public final class Pawn extends MultiMovePiece {
     }
 
     @Override
+    public boolean canMove(final Point departure, final Point destination, final Map<Point, Piece> board) {
+        if (departure.isDiagonalWithSlopeOfOne(destination) && board.get(destination).equals(Empty.INSTANCE)) {
+            return false;
+        }
+        if (departure.isStraight(destination) && !board.get(destination).equals(Empty.INSTANCE)) {
+            return false;
+        }
+        return super.canMove(departure, destination, board);
+    }
+
+    @Override
     protected boolean isMovablePoint(final Point departure, final Point destination) {
         final Team team = getTeam();
         final List<Point> movablePoints = findMovablePoints(departure, team);
@@ -44,16 +55,5 @@ public final class Pawn extends MultiMovePiece {
             final Point point = currentPoint.add(addFile, addRank);
             points.add(point);
         }
-    }
-
-    @Override
-    public boolean canMove(final Point departure, final Point destination, final Map<Point, Piece> board) {
-        if (departure.isDiagonalWithSlopeOfOne(destination) && board.get(destination).equals(Empty.INSTANCE)) {
-            return false;
-        }
-        if (departure.isStraight(destination) && !board.get(destination).equals(Empty.INSTANCE)) {
-            return false;
-        }
-        return super.canMove(departure, destination, board);
     }
 }

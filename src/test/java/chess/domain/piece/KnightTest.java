@@ -32,7 +32,7 @@ class KnightTest {
     @DisplayName("위로 두칸을 이동한 뒤 좌로 한칸 이동할 수 있다.")
     void isMovablePoint1() {
         boolean result = knight.isMovablePoint(
-                포인트("A4"),
+                포인트("E4"),
                 포인트("D6"));
 
         assertThat(result).isTrue();
