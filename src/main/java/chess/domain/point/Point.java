@@ -118,4 +118,12 @@ public class Point {
     public boolean isSeventhRank() {
         return this.rank == Rank.SEVEN;
     }
+
+    public File getFile() {
+        return file;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
 }
