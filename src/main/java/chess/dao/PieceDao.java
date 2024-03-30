@@ -34,4 +34,14 @@ public class PieceDao {
         }
         return pieces.get(0);
     }
+
+    public List<PieceDto> findAll() {
+        final String query = "SELECT * FROM " + TABLE_NAME;
+        return jdbcTemplate.executeAndGet(query, rowMapper);
+    }
+
+    public void deleteAll() {
+        final String query = "DELETE FROM " + TABLE_NAME;
+        jdbcTemplate.execute(query);
+    }
 }

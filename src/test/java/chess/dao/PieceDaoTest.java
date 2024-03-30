@@ -2,6 +2,7 @@ package chess.dao;
 
 import chess.db.JdbcTemplate;
 import chess.dto.PieceDto;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +10,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class PieceDaoTest {
     private PieceDao pieceDao = new PieceDao(new JdbcTemplate());
+
+    @AfterEach
+    void rollback() {
+        pieceDao.deleteAll();
+    }
 
     @Test
     @DisplayName("피스를 저장하고 찾을 수 있다.")
@@ -20,5 +26,19 @@ class PieceDaoTest {
 
         assertThat(findPiece.team()).isEqualTo("WHITE");
         assertThat(findPiece.type()).isEqualTo("PAWN");
+    }
+
+    @Test
+    @DisplayName("저장된 피스를 모두 찾을 수 있다.")
+    void findAll() {
+        final var pieceDtoA = new PieceDto("A", "3", "WHITE", "PAWN");
+        final var pieceDtoB = new PieceDto("B", "5", "BLACK", "PAWN");
+        final var pieceDtoC = new PieceDto("C", "7", "BLACK", "KING");
+        pieceDao.save(pieceDtoA);
+        pieceDao.save(pieceDtoB);
+        pieceDao.save(pieceDtoC);
+
+        assertThat(pieceDao.findAll())
+                .containsExactly(pieceDtoA, pieceDtoB, pieceDtoC);
     }
 }
