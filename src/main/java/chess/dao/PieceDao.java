@@ -44,4 +44,10 @@ public class PieceDao {
         final String query = "DELETE FROM " + TABLE_NAME;
         jdbcTemplate.execute(query);
     }
+
+    public boolean hasRecords() {
+        final String query = "SELECT * FROM " + TABLE_NAME + " LIMIT 1";
+        final List<PieceDto> pieces = jdbcTemplate.executeAndGet(query, rowMapper);
+        return !pieces.isEmpty();
+    }
 }

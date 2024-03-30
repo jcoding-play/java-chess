@@ -41,4 +41,17 @@ class PieceDaoTest {
         assertThat(pieceDao.findAll())
                 .containsExactly(pieceDtoA, pieceDtoB, pieceDtoC);
     }
+
+    @Test
+    @DisplayName("저장된 피스가 있는지 판별할 수 있다.")
+    void hasRecords() {
+        final var pieceDtoA = new PieceDto("A", "3", "WHITE", "PAWN");
+        final var pieceDtoB = new PieceDto("B", "5", "BLACK", "PAWN");
+        final var pieceDtoC = new PieceDto("C", "7", "BLACK", "KING");
+        pieceDao.save(pieceDtoA);
+        pieceDao.save(pieceDtoB);
+        pieceDao.save(pieceDtoC);
+
+        assertThat(pieceDao.hasRecords()).isTrue();
+    }
 }
