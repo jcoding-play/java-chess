@@ -107,13 +107,13 @@ class BoardTest {
     @Test
     @DisplayName("비숍이 이동할 경로에 기물이 있으면 예외가 발생한다.")
     void invalidMove() {
-        tempBoard.put(Point.of('a', 1), new Bishop(Team.WHITE));
-        tempBoard.put(Point.of('b', 2), new Bishop(Team.WHITE));
+        tempBoard.put(포인트("A1"), new Bishop(Team.WHITE));
+        tempBoard.put(포인트("B2"), new Bishop(Team.WHITE));
         Board board = new Board(tempBoard);
 
         assertThatThrownBy(() -> board.move(Team.WHITE,
-                Point.of('a', 1),
-                Point.of('c', 3)))
+                포인트("A1"),
+                포인트("B2")))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("해당 기물이 이동할 수 있는 위치가 아닙니다.");
     }
@@ -121,13 +121,13 @@ class BoardTest {
     @Test
     @DisplayName("룩이 이동할 경로에 기물이 있으면 예외가 발생한다.")
     void invalidMove2() {
-        tempBoard.put(Point.of('a', 1), new Rook(Team.WHITE));
-        tempBoard.put(Point.of('a', 5), new Rook(Team.WHITE));
+        tempBoard.put(포인트("A1"), new Rook(Team.WHITE));
+        tempBoard.put(포인트("A5"), new Rook(Team.WHITE));
         Board board = new Board(tempBoard);
 
         assertThatThrownBy(() -> board.move(Team.WHITE,
-                Point.of('a', 1),
-                Point.of('a', 8)))
+                포인트("A1"),
+                포인트("A8")))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("해당 기물이 이동할 수 있는 위치가 아닙니다.");
     }
@@ -135,13 +135,13 @@ class BoardTest {
     @Test
     @DisplayName("폰은 수직으로 이동할 때 적이 경로에 있어도 전진할 수 없다.")
     void invalidMove3() {
-        tempBoard.put(Point.of('a', 1), new Pawn(Team.WHITE));
-        tempBoard.put(Point.of('a', 2), new Pawn(Team.BLACK));
+        tempBoard.put(포인트("A1"), new Pawn(Team.WHITE));
+        tempBoard.put(포인트("A2"), new Pawn(Team.BLACK));
         Board board = new Board(tempBoard);
 
         assertThatThrownBy(() -> board.move(Team.WHITE,
-                Point.of('a', 1),
-                Point.of('a', 2)))
+                포인트("A1"),
+                포인트("A2")))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("해당 기물이 이동할 수 있는 위치가 아닙니다.");
     }
@@ -149,13 +149,26 @@ class BoardTest {
     @Test
     @DisplayName("폰은 대각선에 적이 없으면 대각선으로 이동할 수 없다.")
     void invalidMove4() {
-        tempBoard.put(Point.of('a', 1), new Pawn(Team.WHITE));
+        tempBoard.put(포인트("A1"), new Pawn(Team.WHITE));
         Board board = new Board(tempBoard);
 
         assertThatThrownBy(() -> board.move(Team.WHITE,
-                Point.of('a', 1),
-                Point.of('b', 2)))
+                포인트("A1"),
+                포인트("B2")))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("해당 기물이 이동할 수 있는 위치가 아닙니다.");
+    }
+
+    @Test
+    @DisplayName("상대방의 기물을 이동할 수 없다.")
+    void invalidMove5() {
+        tempBoard.put(포인트("A1"), new Pawn(Team.WHITE));
+        Board board = new Board(tempBoard);
+
+        assertThatThrownBy(() -> board.move(Team.BLACK,
+                포인트("A1"),
+                포인트("A2")))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("상대방의 기물을 움직일 수 없습니다.");
     }
 }
