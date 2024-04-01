@@ -3,6 +3,7 @@ package chess.domain.board;
 import chess.domain.piece.Empty;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Team;
+import chess.domain.piece.Type;
 import chess.domain.point.Point;
 
 import java.util.Collections;
@@ -87,6 +88,12 @@ public class Board {
             }
         }
         return pawnCountInSameLine;
+    }
+
+    public boolean isKingDead() {
+        return board.values().stream()
+                .filter(piece -> piece.getType() == Type.KING)
+                .count() < 2;
     }
 
     public Map<Point, Piece> getBoard() {

@@ -1,20 +1,27 @@
 package chess.controller;
 
+import chess.dao.ChessGameService;
 import chess.domain.board.BoardFactory;
 import chess.domain.game.ChessGame;
-import chess.domain.game.Command;
+import chess.domain.piece.Piece;
 import chess.domain.piece.Team;
 import chess.domain.point.Point;
+import chess.dto.PieceDto;
+import chess.dto.TurnDto;
+import chess.view.Command;
 import chess.view.InputView;
 import chess.view.OutputView;
 
 import java.util.List;
+import java.util.Map;
 
 public class ChessController {
+    private final ChessGameService chessGameService;
     private final InputView inputView;
     private final OutputView outputView;
 
-    public ChessController(final InputView inputView, final OutputView outputView) {
+    public ChessController(final ChessGameService chessGameService, final InputView inputView, final OutputView outputView) {
+        this.chessGameService = chessGameService;
         this.inputView = inputView;
         this.outputView = outputView;
     }
@@ -22,11 +29,20 @@ public class ChessController {
     public void run() {
         outputView.printGameStart();
 
-        final ChessGame game = new ChessGame(BoardFactory.createInitialChessBoard());
+        final ChessGame game = initializeChessGame();
 
         while (game.isPlayable()) {
             play(game);
         }
+        updateGameStatus(game);
+    }
+
+    private ChessGame initializeChessGame() {
+        if (chessGameService.isPreviousDataExist()) {
+            final TurnDto turnDto = chessGameService.loadPreviousTurn();
+            return new ChessGame(BoardFactory.loadPreviousChessBoard(chessGameService.loadPreviousData()), turnDto.getTurn());
+        }
+        return new ChessGame(BoardFactory.createInitialChessBoard());
     }
 
     private void play(final ChessGame game) {
@@ -69,5 +85,24 @@ public class ChessController {
         final int rank = Character.getNumericValue(pointInfo.charAt(1));
 
         return Point.of(file, rank);
+    }
+
+    private void updateGameStatus(final ChessGame game) {
+        if (game.isGameOver()) {
+            chessGameService.deletePreviousData();
+            return;
+        }
+        final List<PieceDto> pieceDtos = getPieces(game);
+        chessGameService.updatePiece(pieceDtos);
+        chessGameService.updateTurn(TurnDto.from(game.getTeam()));
+    }
+
+    private List<PieceDto> getPieces(final ChessGame game) {
+        final Map<Point, Piece> board = game.getBoard();
+
+        return board.entrySet()
+                .stream()
+                .map(entry -> PieceDto.of(entry.getKey(), entry.getValue()))
+                .toList();
     }
 }

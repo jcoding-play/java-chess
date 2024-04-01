@@ -2,9 +2,12 @@ package chess.domain.board;
 
 import chess.domain.piece.*;
 import chess.domain.point.Point;
+import chess.dto.PieceDto;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class BoardFactory {
@@ -79,5 +82,10 @@ public class BoardFactory {
             line.put(Point.of(file, rank), Empty.INSTANCE);
         }
         return line;
+    }
+
+    public static Map<Point, Piece> loadPreviousChessBoard(final List<PieceDto> pieceDtos) {
+        return pieceDtos.stream()
+                .collect(Collectors.toMap(PieceDto::getPoint, PieceDto::getPiece));
     }
 }
