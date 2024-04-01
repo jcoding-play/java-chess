@@ -3,6 +3,7 @@ package chess.dao;
 import chess.db.JdbcTemplate;
 import chess.dto.PieceDto;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +11,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class PieceDaoTest {
     private PieceDao pieceDao = new PieceDao(new JdbcTemplate());
+
+    @BeforeEach
+    void setUp() {
+        pieceDao.deleteAll();
+    }
 
     @AfterEach
     void rollback() {
@@ -19,7 +25,7 @@ class PieceDaoTest {
     @Test
     @DisplayName("피스를 저장하고 찾을 수 있다.")
     void findOne() {
-        final var pieceDto = new PieceDto("A", "3", "WHITE", "PAWN");
+        final PieceDto pieceDto = new PieceDto("A", "3", "WHITE", "PAWN");
         pieceDao.save(pieceDto);
 
         PieceDto findPiece = pieceDao.findOne("A", "3");
@@ -31,9 +37,9 @@ class PieceDaoTest {
     @Test
     @DisplayName("저장된 피스를 모두 찾을 수 있다.")
     void findAll() {
-        final var pieceDtoA = new PieceDto("A", "3", "WHITE", "PAWN");
-        final var pieceDtoB = new PieceDto("B", "5", "BLACK", "PAWN");
-        final var pieceDtoC = new PieceDto("C", "7", "BLACK", "KING");
+        final PieceDto pieceDtoA = new PieceDto("A", "3", "WHITE", "PAWN");
+        final PieceDto pieceDtoB = new PieceDto("B", "5", "BLACK", "PAWN");
+        final PieceDto pieceDtoC = new PieceDto("C", "7", "BLACK", "KING");
         pieceDao.save(pieceDtoA);
         pieceDao.save(pieceDtoB);
         pieceDao.save(pieceDtoC);
@@ -45,9 +51,9 @@ class PieceDaoTest {
     @Test
     @DisplayName("저장된 피스가 있는지 판별할 수 있다.")
     void hasRecords() {
-        final var pieceDtoA = new PieceDto("A", "3", "WHITE", "PAWN");
-        final var pieceDtoB = new PieceDto("B", "5", "BLACK", "PAWN");
-        final var pieceDtoC = new PieceDto("C", "7", "BLACK", "KING");
+        final PieceDto pieceDtoA = new PieceDto("A", "3", "WHITE", "PAWN");
+        final PieceDto pieceDtoB = new PieceDto("B", "5", "BLACK", "PAWN");
+        final PieceDto pieceDtoC = new PieceDto("C", "7", "BLACK", "KING");
         pieceDao.save(pieceDtoA);
         pieceDao.save(pieceDtoB);
         pieceDao.save(pieceDtoC);
