@@ -1,4 +1,4 @@
-package chess.domain.game;
+package chess.view;
 
 import java.util.Arrays;
 import java.util.Map;
