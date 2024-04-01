@@ -21,4 +21,15 @@ public record PieceDto(String file, String rank, String team, String type) {
                 team.name(),
                 type.name());
     }
+
+    public Point getPoint() {
+        return Point.of(File.valueOf(file).getPosition(), Integer.parseInt(rank));
+    }
+
+    public Piece getPiece() {
+        final Team team = Team.valueOf(this.team);
+        final Type type = Type.valueOf(this.type);
+
+        return type.getPiece(team);
+    }
 }
