@@ -15,4 +15,14 @@ class TurnDtoTest {
 
         assertThat(turnDto.turn()).isEqualTo("BLACK");
     }
+
+    @Test
+    @DisplayName("dto에서 turn 정보를 알 수 있다.")
+    void getTurn() {
+        final TurnDto turnDto = TurnDto.from(Team.BLACK);
+
+        final Team turn = turnDto.getTurn();
+
+        assertThat(turn).isEqualTo(Team.BLACK);
+    }
 }
