@@ -19,7 +19,7 @@ public class Ready implements State {
 
     @Override
     public State finish() {
-        return new End();
+        return new End(team.opposite());
     }
 
     @Override
@@ -35,5 +35,10 @@ public class Ready implements State {
     @Override
     public double calculateScore(final Board board, final Team team) {
         throw new UnsupportedOperationException(GAME_READY_EXCEPTION_MESSAGE);
+    }
+
+    @Override
+    public Team getTeam() {
+        return team;
     }
 }

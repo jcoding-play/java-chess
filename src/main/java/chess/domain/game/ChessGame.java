@@ -38,6 +38,10 @@ public class ChessGame {
         return state.calculateScore(board, team);
     }
 
+    public Team getTeam() {
+        return state.getTeam();
+    }
+
     public Map<Point, Piece> getBoard() {
         return board.getBoard();
     }

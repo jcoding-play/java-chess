@@ -19,7 +19,7 @@ public class Running implements State {
 
     @Override
     public State finish() {
-        return new End();
+        return new End(team.opposite());
     }
 
     @Override
@@ -33,7 +33,7 @@ public class Running implements State {
         board.move(team, departure, destination);
 
         if (destinationPiece.isKing()) {
-            return new End();
+            return new End(team.opposite());
         }
         return new Running(team.opposite());
     }
@@ -41,5 +41,10 @@ public class Running implements State {
     @Override
     public double calculateScore(final Board board, final Team team) {
         return board.calculateTotalScore(team);
+    }
+
+    @Override
+    public Team getTeam() {
+        return team;
     }
 }

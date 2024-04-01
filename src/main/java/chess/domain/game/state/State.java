@@ -15,4 +15,6 @@ public interface State {
     State move(Board board, Point departure, Point destination);
 
     double calculateScore(Board board, Team team);
+
+    Team getTeam();
 }

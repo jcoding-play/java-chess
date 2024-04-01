@@ -6,6 +6,11 @@ import chess.domain.point.Point;
 
 public class End implements State {
     private static final String END_GAME_EXCEPTION_MESSAGE = "이미 게임이 종료되었습니다.";
+    private final Team team;
+
+    public End(final Team team) {
+        this.team = team;
+    }
 
     @Override
     public State start() {
@@ -30,5 +35,10 @@ public class End implements State {
     @Override
     public double calculateScore(final Board board, final Team team) {
         throw new UnsupportedOperationException(END_GAME_EXCEPTION_MESSAGE);
+    }
+
+    @Override
+    public Team getTeam() {
+        return team;
     }
 }
