@@ -171,4 +171,45 @@ class BoardTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("상대방의 기물을 움직일 수 없습니다.");
     }
+
+    @Test
+    @DisplayName("왕이 죽었는지 확인할 수 있다.")
+    void isKingDead_false() {
+        Map<Point, Piece> chessBoard = BoardFactory.createInitialChessBoard();
+        Board board = new Board(chessBoard);
+
+        boolean result = board.isKingDead();
+
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    @DisplayName("검정색 왕이 죽었는지 확인할 수 있다.")
+    void isBlackKingDead_true() {
+        Map<Point, Piece> chessBoard = BoardFactory.createInitialChessBoard();
+        chessBoard.put(포인트("E7"), new Rook(Team.WHITE));
+        Board board = new Board(chessBoard);
+
+        board.move(Team.WHITE,
+                포인트("E7"),
+                포인트("E8"));
+        boolean result = board.isKingDead();
+
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    @DisplayName("흰색 왕이 죽었는지 확인할 수 있다.")
+    void isWhiteKingDead_true() {
+        Map<Point, Piece> chessBoard = BoardFactory.createInitialChessBoard();
+        chessBoard.put(포인트("D2"), new Pawn(Team.BLACK));
+        Board board = new Board(chessBoard);
+
+        board.move(Team.BLACK,
+                포인트("D2"),
+                포인트("E1"));
+        boolean result = board.isKingDead();
+
+        assertThat(result).isTrue();
+    }
 }
