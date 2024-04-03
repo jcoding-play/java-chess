@@ -4,11 +4,12 @@ import chess.domain.piece.Empty;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Team;
 import chess.domain.piece.Type;
+import chess.domain.point.File;
 import chess.domain.point.Point;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Board {
     private final Map<Point, Piece> board;
@@ -67,7 +68,7 @@ public class Board {
     }
 
     private double calculatePenalty(final Team team) {
-        final Map<Character, Integer> pawnCountInSameLine = countPawnInSameLine(team);
+        final Map<File, Long> pawnCountInSameLine = countPawnInSameLine(team);
 
         return pawnCountInSameLine.values()
                 .stream()
@@ -76,18 +77,16 @@ public class Board {
                 .sum();
     }
 
-    private Map<Character, Integer> countPawnInSameLine(final Team team) {
-        final Map<Character, Integer> pawnCountInSameLine = new HashMap<>();
+    private Map<File, Long> countPawnInSameLine(final Team team) {
+        return board.entrySet()
+                .stream()
+                .filter(entry -> isSameTeamPawn(team, entry.getValue()))
+                .map(entry -> entry.getKey().getFile())
+                .collect(Collectors.groupingBy(file -> file, Collectors.counting()));
+    }
 
-        for (char file = 'a'; file <= 'h'; file++) {
-            for (int rank = 1; rank <= 8; rank++) {
-                final Piece piece = board.get(Point.of(file, rank));
-                if (piece.isPawn() && piece.isTeamMatch(team)) {
-                    pawnCountInSameLine.put(file, pawnCountInSameLine.getOrDefault(file, 0) + 1);
-                }
-            }
-        }
-        return pawnCountInSameLine;
+    private boolean isSameTeamPawn(final Team team, final Piece piece) {
+        return piece.isPawn() && piece.isTeamMatch(team);
     }
 
     public boolean isKingDead() {
