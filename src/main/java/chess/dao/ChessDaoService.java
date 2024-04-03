@@ -1,6 +1,5 @@
 package chess.dao;
 
-import chess.db.JdbcTemplate;
 import chess.dto.PieceDto;
 import chess.dto.TurnDto;
 
@@ -10,11 +9,9 @@ public class ChessDaoService {
     private final PieceDao pieceDao;
     private final TurnDao turnDao;
 
-
-    public ChessDaoService() {
-        final JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        this.pieceDao = new PieceDao(jdbcTemplate);
-        this.turnDao = new TurnDao(jdbcTemplate);
+    public ChessDaoService(final PieceDao pieceDao, final TurnDao turnDao) {
+        this.pieceDao = pieceDao;
+        this.turnDao = turnDao;
     }
 
     public boolean isPreviousDataExist() {
