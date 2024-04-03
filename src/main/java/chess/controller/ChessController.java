@@ -1,6 +1,6 @@
 package chess.controller;
 
-import chess.dao.ChessGameService;
+import chess.dao.ChessDaoService;
 import chess.domain.board.BoardFactory;
 import chess.domain.game.ChessGame;
 import chess.domain.piece.Piece;
@@ -16,12 +16,12 @@ import java.util.List;
 import java.util.Map;
 
 public class ChessController {
-    private final ChessGameService chessGameService;
+    private final ChessDaoService chessDaoService;
     private final InputView inputView;
     private final OutputView outputView;
 
-    public ChessController(final ChessGameService chessGameService, final InputView inputView, final OutputView outputView) {
-        this.chessGameService = chessGameService;
+    public ChessController(final ChessDaoService chessDaoService, final InputView inputView, final OutputView outputView) {
+        this.chessDaoService = chessDaoService;
         this.inputView = inputView;
         this.outputView = outputView;
     }
@@ -38,9 +38,9 @@ public class ChessController {
     }
 
     private ChessGame initializeChessGame() {
-        if (chessGameService.isPreviousDataExist()) {
-            final TurnDto turnDto = chessGameService.loadPreviousTurn();
-            return new ChessGame(BoardFactory.loadPreviousChessBoard(chessGameService.loadPreviousData()), turnDto.getTurn());
+        if (chessDaoService.isPreviousDataExist()) {
+            final TurnDto turnDto = chessDaoService.loadPreviousTurn();
+            return new ChessGame(BoardFactory.loadPreviousChessBoard(chessDaoService.loadPreviousData()), turnDto.getTurn());
         }
         return new ChessGame(BoardFactory.createInitialChessBoard());
     }
@@ -89,12 +89,12 @@ public class ChessController {
 
     private void updateGameStatus(final ChessGame game) {
         if (game.isGameOver()) {
-            chessGameService.deletePreviousData();
+            chessDaoService.deletePreviousData();
             return;
         }
         final List<PieceDto> pieceDtos = getPieces(game);
-        chessGameService.updatePiece(pieceDtos);
-        chessGameService.updateTurn(TurnDto.from(game.getTeam()));
+        chessDaoService.updatePiece(pieceDtos);
+        chessDaoService.updateTurn(TurnDto.from(game.getTeam()));
     }
 
     private List<PieceDto> getPieces(final ChessGame game) {

@@ -6,12 +6,12 @@ import chess.dto.TurnDto;
 
 import java.util.List;
 
-public class ChessGameService {
+public class ChessDaoService {
     private final PieceDao pieceDao;
     private final TurnDao turnDao;
 
 
-    public ChessGameService() {
+    public ChessDaoService() {
         final JdbcTemplate jdbcTemplate = new JdbcTemplate();
         this.pieceDao = new PieceDao(jdbcTemplate);
         this.turnDao = new TurnDao(jdbcTemplate);
