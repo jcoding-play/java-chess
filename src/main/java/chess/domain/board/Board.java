@@ -12,6 +12,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Board {
+    private static final double NUMBER_TO_MAKE_PENALTY_SCORE = 0.5;
+    private static final int MINIMUM_NUMBER_OF_PENALTY = 2;
+    private static final int INITIAL_KING_COUNT = 2;
+
     private final Map<Point, Piece> board;
 
     public Board(final Map<Point, Piece> board) {
@@ -72,8 +76,8 @@ public class Board {
 
         return pawnCountInSameLine.values()
                 .stream()
-                .filter(count -> count >= 2)
-                .mapToDouble(count -> count * 0.5)
+                .filter(count -> count >= MINIMUM_NUMBER_OF_PENALTY)
+                .mapToDouble(count -> count * NUMBER_TO_MAKE_PENALTY_SCORE)
                 .sum();
     }
 
@@ -92,7 +96,7 @@ public class Board {
     public boolean isKingDead() {
         return board.values().stream()
                 .filter(piece -> piece.getType() == Type.KING)
-                .count() < 2;
+                .count() < INITIAL_KING_COUNT;
     }
 
     public Map<Point, Piece> getBoard() {

@@ -11,11 +11,15 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class BoardFactory {
+    private static final int MINIMUM_RANK = 1;
+    private static final int MAXIMUM_RANK = 8;
+    private static final char MINIMUM_FILE = 'a';
+    private static final char MAXIMUM_FILE = 'h';
 
     public static Map<Point, Piece> createEmptyBoard() {
         final Map<Point, Piece> board = new HashMap<>();
 
-        IntStream.rangeClosed(1, 8)
+        IntStream.rangeClosed(MINIMUM_RANK, MAXIMUM_RANK)
                 .boxed()
                 .map(BoardFactory::lineOfEmpty)
                 .forEach(board::putAll);
@@ -56,7 +60,7 @@ public class BoardFactory {
     private static Map<Point, Piece> lineOfPawn(final int rank, final Team team) {
         final Map<Point, Piece> line = new HashMap<>();
 
-        for (char file = 'a'; file <= 'h'; file++) {
+        for (char file = MINIMUM_FILE; file <= MAXIMUM_FILE; file++) {
             line.put(Point.of(file, rank), new Pawn(team));
         }
         return line;
@@ -78,7 +82,7 @@ public class BoardFactory {
     private static Map<Point, Piece> lineOfEmpty(final int rank) {
         final Map<Point, Piece> line = new HashMap<>();
 
-        for (char file = 'a'; file <= 'h'; file++) {
+        for (char file = MINIMUM_FILE; file <= MAXIMUM_FILE; file++) {
             line.put(Point.of(file, rank), Empty.INSTANCE);
         }
         return line;
